@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OLIVÉ COFFEE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f0e6;color:#35382a;font-family:Arial,sans-serif}
+header{background:#49583b;color:#fff;padding:22px;text-align:center}
+header h1{font-family:Georgia,serif;letter-spacing:3px;margin:0}
+header p{font-size:12px;letter-spacing:2px}
+.hero{padding:40px 22px;text-align:center;background:#e6e4d5}
+.hero h2{font:34px Georgia,serif;margin:8px}
+.hero p{line-height:1.6}
+main{padding:20px;max-width:850px;margin:auto}
+h2{font-family:Georgia,serif}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.product{background:#fff;border-radius:15px;overflow:hidden}
+.product img{width:100%;height:150px;object-fit:cover}
+.info{padding:12px}
+.info h3{font-size:15px;margin:5px 0}
+.price{font-weight:bold;color:#52613b}
+button{border:0;background:#52613b;color:white;padding:12px;border-radius:10px;cursor:pointer}
+.product button{width:100%;margin-top:10px}
+.cart{background:white;border-radius:15px;padding:18px;margin-top:30px}
+.cart-row{display:flex;justify-content:space-between;gap:8px;margin:12px 0}
+input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d5d2c8;border-radius:9px;font:inherit}
+.checkout button{width:100%;margin-top:10px}
+footer{text-align:center;padding:30px;color:#777}
+</style>
+</head>
+<body>
+<header>
+<h1>OLIVÉ COFFEE</h1>
+<p>COFFEE · DESSERTS · MORE</p>
+</header>
+<section class="hero">
+<h2>Вкус в каждой детали</h2>
+<p>Любимый кофе, нежные десерты и уют в каждом заказе.</p>
+</section>
+<main>
+<h2>Наше меню</h2>
+<div class="products" id="products"></div>
+<section class="cart">
+<h2>🛍 Корзина</h2>
+<div id="cartItems">Корзина пуста</div>
+<h3 id="total">Итого: 0 ₽</h3>
+</section>
+<section class="cart checkout">
+<h2>Оформить заказ</h2>
+<input id="name" placeholder="Ваше имя">
+<input id="phone" placeholder="Номер телефона">
+<select id="delivery">
+<option>Самовывоз</option>
+<option>Доставка</option>
+</select>
+<textarea id="comment" placeholder="Адрес или комментарий"></textarea>
+<button onclick="checkout()">Отправить заказ в WhatsApp</button>
+<p style="font-size:12px;color:#777">Демонстрационная версия. Для реальных заказов потребуется подключить номер кофейни.</p>
+</section>
+</main>
+<footer>OLIVÉ COFFEE · С любовью к деталям</footer>
+<script>
+const menu=[
+{name:"Капучино",price:250,img:"https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=500"},
+{name:"Айс-латте",price:290,img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500"},
+{name:"Круассан",price:230,img:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500"},
+{name:"Чизкейк",price:350,img:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500"}
+];
+const cart={};
+function render(){
+document.getElementById("products").innerHTML=menu.map((p,i)=>`
+<div class="product">
+<img src="${p.img}" alt="${p.name}">
+<div class="info">
+<h3>${p.name}</h3>
+<div class="price">${p.price} ₽</div>
+<button onclick="add(${i})">+ В корзину</button>
+</div></div>`).join("");
+updateCart();
+}
+function add(i){cart[i]=(cart[i]||0)+1;updateCart()}
+function remove(i){delete cart[i];updateCart()}
+function updateCart(){
+let total=0,rows=[];
+for(const [i,q] of Object.entries(cart)){
+const p=menu[i];total+=p.price*q;
+rows.push(`<div class="cart-row"><span>${p.name} × ${q}</span><span>${p.price*q} ₽ <button onclick="remove(${i})">×</button></span></div>`);
+}
+document.getElementById("cartItems").innerHTML=rows.join("")||"Корзина пуста";
+document.getElementById("total").textContent="Итого: "+total+" ₽";
+}
+function checkout(){
+const name=document.getElementById("name").value.trim();
+const phone=document.getElementById("phone").value.trim();
+if(!name||!phone||!Object.keys(cart).length){
+alert("Добавьте товары и заполните имя и телефон");return;
+}
+let total=0;
+const items=Object.entries(cart).map(([i,q])=>{
+const p=menu[i];total+=p.price*q;
+return p.name+" × "+q+" — "+p.price*q+" ₽";
+}).join("\n");
+const msg="Новый заказ OLIVÉ COFFEE\n"+items+
+"\nИтого: "+total+" ₽\nИмя: "+name+
+"\nТелефон: "+phone+
+"\nПолучение: "+document.getElementById("delivery").value+
+"\nКомментарий: "+document.getElementById("comment").value;
+const number="";
+if(!number){alert("Для отправки заказов нужно подключить номер WhatsApp кофейни.");return;}
+window.open("https://wa.me/"+number+"?text="+encodeURIComponent(msg),"_blank");
+}
+render();
+</script>
+</body>
+</html>
