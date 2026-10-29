@@ -1,118 +1,41 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OLIVÉ COFFEE</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OLIVÉ COFFEE — кофе и десерты</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f5f0e6;color:#35382a;font-family:Arial,sans-serif}
-header{background:#49583b;color:#fff;padding:22px;text-align:center}
-header h1{font-family:Georgia,serif;letter-spacing:3px;margin:0}
-header p{font-size:12px;letter-spacing:2px}
-.hero{padding:40px 22px;text-align:center;background:#e6e4d5}
-.hero h2{font:34px Georgia,serif;margin:8px}
-.hero p{line-height:1.6}
-main{padding:20px;max-width:850px;margin:auto}
-h2{font-family:Georgia,serif}
-.products{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.product{background:#fff;border-radius:15px;overflow:hidden}
-.product img{width:100%;height:150px;object-fit:cover}
-.info{padding:12px}
-.info h3{font-size:15px;margin:5px 0}
-.price{font-weight:bold;color:#52613b}
-button{border:0;background:#52613b;color:white;padding:12px;border-radius:10px;cursor:pointer}
-.product button{width:100%;margin-top:10px}
-.cart{background:white;border-radius:15px;padding:18px;margin-top:30px}
-.cart-row{display:flex;justify-content:space-between;gap:8px;margin:12px 0}
-input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d5d2c8;border-radius:9px;font:inherit}
-.checkout button{width:100%;margin-top:10px}
-footer{text-align:center;padding:30px;color:#777}
+:root{--olive:#49583b;--deep:#263322;--cream:#f5f0e6;--gold:#c4aa77;--ink:#30352c}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}header{background:var(--olive);color:white;text-align:center;padding:34px 16px 28px}header h1{font:normal 42px Georgia,serif;letter-spacing:5px;margin:0}header p{letter-spacing:3px;font-size:11px;margin:8px 0 0}.hero{text-align:center;padding:48px 20px;background:linear-gradient(145deg,#e8e7d7,#f8f5ed)}.hero h2{font:normal 35px Georgia,serif;color:var(--deep);margin:0 0 10px}.hero p{max-width:520px;margin:auto;color:#64695d}main{max-width:1040px;margin:auto;padding:25px 18px 60px}h2.section{font:normal 29px Georgia,serif;color:var(--deep);margin:35px 0 18px}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters button{width:auto;border-radius:30px;background:#e5e5d9;color:var(--deep);padding:9px 15px}.filters button.active{background:var(--olive);color:#fff}.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}.product{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px #23321b0d}.product .art{height:145px;display:grid;place-items:center;font-size:62px;background:linear-gradient(145deg,#d9dfcb,#f2ebd9)}.info{padding:17px}.info h3{margin:0 0 5px;font:normal 20px Georgia,serif}.info p{font-size:13px;color:#74766e;min-height:38px;margin:0 0 12px}.price{font-weight:700;color:var(--olive);font-size:19px}button{border:0;border-radius:10px;padding:11px 15px;background:var(--olive);color:white;font-weight:600;cursor:pointer}.product button{width:100%;margin-top:12px}.checkout{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}.panel{background:white;border-radius:18px;padding:23px;box-shadow:0 6px 24px #23321b0d}.panel h3{font:normal 24px Georgia,serif;margin:0 0 15px}.cart-row{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #ecece7;padding:12px 0}.cart-row small{color:#777}.qty{display:flex;gap:8px;align-items:center}.qty button{padding:5px 10px}.total{display:flex;justify-content:space-between;font-size:20px;font-weight:700;padding:20px 0}label{display:block;margin:13px 0 5px;font-size:13px}input,textarea,select{width:100%;border:1px solid #d8dbd1;border-radius:10px;padding:12px;font:inherit;background:#fff}textarea{min-height:75px;resize:vertical}.submit{width:100%;margin-top:16px;padding:14px}.note{font-size:12px;color:#74766e;margin-top:10px}.status{margin-top:12px;font-size:14px}.status.error{color:#a22}.status.ok{color:#356a36}footer{text-align:center;background:var(--deep);color:#f4f0e7;padding:32px 16px;font-size:13px}footer strong{font:normal 24px Georgia,serif;letter-spacing:3px}@media(max-width:650px){.checkout{grid-template-columns:1fr}.hero h2{font-size:30px}header h1{font-size:35px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product .art{height:110px;font-size:49px}.info{padding:12px}.info h3{font-size:17px}.info p{font-size:12px;min-height:55px}}
 </style>
 </head>
 <body>
-<header>
-<h1>OLIVÉ COFFEE</h1>
-<p>COFFEE · DESSERTS · MORE</p>
-</header>
-<section class="hero">
-<h2>Вкус в каждой детали</h2>
-<p>Любимый кофе, нежные десерты и уют в каждом заказе.</p>
-</section>
-<main>
-<h2>Наше меню</h2>
-<div class="products" id="products"></div>
-<section class="cart">
-<h2>🛍 Корзина</h2>
-<div id="cartItems">Корзина пуста</div>
-<h3 id="total">Итого: 0 ₽</h3>
-</section>
-<section class="cart checkout">
-<h2>Оформить заказ</h2>
-<input id="name" placeholder="Ваше имя">
-<input id="phone" placeholder="Номер телефона">
-<select id="delivery">
-<option>Самовывоз</option>
-<option>Доставка</option>
-</select>
-<textarea id="comment" placeholder="Адрес или комментарий"></textarea>
-<button onclick="checkout()">Отправить заказ в WhatsApp</button>
-<p style="font-size:12px;color:#777">Демонстрационная версия. Для реальных заказов потребуется подключить номер кофейни.</p>
-</section>
-</main>
-<footer>OLIVÉ COFFEE · С любовью к деталям</footer>
+<header><h1>OLIVÉ COFFEE</h1><p>COFFEE · DESSERTS · MORE</p></header>
+<section class="hero"><h2>Маленькие моменты большого удовольствия</h2><p>Ароматный кофе, любимые десерты и вкусные завтраки. Выбирайте то, что хочется именно сегодня.</p></section>
+<main><h2 class="section">Наше меню</h2><div class="filters" id="filters"></div><div class="products" id="products"></div>
+<h2 class="section" id="order">Ваш заказ</h2><div class="checkout"><div class="panel"><h3>Корзина</h3><div id="cartItems">Корзина пока пуста</div><div class="total"><span>Итого</span><span id="total">0 ₽</span></div></div>
+<div class="panel"><h3>Оформление заказа</h3><form id="orderForm"><label for="name">Ваше имя *</label><input id="name" required autocomplete="name" placeholder="Как к вам обращаться?"><label for="phone">Телефон *</label><input id="phone" type="tel" required autocomplete="tel" placeholder="+7 999 123-45-67"><label for="delivery">Способ получения</label><select id="delivery"><option value="Самовывоз">Самовывоз</option><option value="Доставка">Доставка</option></select><label for="address">Адрес доставки (если нужна доставка)</label><input id="address" autocomplete="street-address" placeholder="Улица, дом, квартира"><label for="comment">Комментарий</label><textarea id="comment" placeholder="Пожелания к заказу"></textarea><button class="submit" type="submit" id="submit">Отправить заказ</button><p class="note">Заказ отправляется в кофейню после подтверждения. Онлайн-оплата не подключена.</p><div class="status" id="status" role="status"></div></form></div></div></main>
+<footer><strong>OLIVÉ COFFEE</strong><p>Создано с любовью к деталям</p></footer>
 <script>
+// Для работы заказов заполните SUPABASE_URL и SUPABASE_PUBLISHABLE_KEY.
+// Никогда не вставляйте сюда secret key или service_role key.
+const SUPABASE_URL = 'https://qxctmpycsbkbdozfroca.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_6smVtj8JcmS7k1jzbYEV-g_hx5VSYjr';
+// Примерное меню — измените названия и цены на актуальные.
 const menu=[
-{name:"Капучино",price:250,img:"https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=500"},
-{name:"Айс-латте",price:290,img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500"},
-{name:"Круассан",price:230,img:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500"},
-{name:"Чизкейк",price:350,img:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500"}
+{name:'Капучино',category:'Кофе',price:220,emoji:'☕',desc:'Нежный кофе с молочной пенкой'},
+{name:'Латте',category:'Кофе',price:250,emoji:'🥛',desc:'Мягкий эспрессо и воздушное молоко'},
+{name:'Американо',category:'Кофе',price:190,emoji:'☕',desc:'Классический насыщенный кофе'},
+{name:'Айс-латте',category:'Напитки',price:290,emoji:'🧊',desc:'Освежающий кофе со льдом'},
+{name:'Матча-латте',category:'Напитки',price:320,emoji:'🍵',desc:'Нежная зелёная матча'},
+{name:'Чизкейк',category:'Десерты',price:350,emoji:'🍰',desc:'Сливочный десерт'},
+{name:'Круассан',category:'Десерты',price:240,emoji:'🥐',desc:'Слоёный и хрустящий'},
+{name:'Сырники',category:'Завтраки',price:390,emoji:'🥞',desc:'Нежные сырники к завтраку'},
+{name:'Омлет',category:'Завтраки',price:350,emoji:'🍳',desc:'Сытный завтрак'}
 ];
-const cart={};
-function render(){
-document.getElementById("products").innerHTML=menu.map((p,i)=>`
-<div class="product">
-<img src="${p.img}" alt="${p.name}">
-<div class="info">
-<h3>${p.name}</h3>
-<div class="price">${p.price} ₽</div>
-<button onclick="add(${i})">+ В корзину</button>
-</div></div>`).join("");
-updateCart();
-}
-function add(i){cart[i]=(cart[i]||0)+1;updateCart()}
-function remove(i){delete cart[i];updateCart()}
-function updateCart(){
-let total=0,rows=[];
-for(const [i,q] of Object.entries(cart)){
-const p=menu[i];total+=p.price*q;
-rows.push(`<div class="cart-row"><span>${p.name} × ${q}</span><span>${p.price*q} ₽ <button onclick="remove(${i})">×</button></span></div>`);
-}
-document.getElementById("cartItems").innerHTML=rows.join("")||"Корзина пуста";
-document.getElementById("total").textContent="Итого: "+total+" ₽";
-}
-function checkout(){
-const name=document.getElementById("name").value.trim();
-const phone=document.getElementById("phone").value.trim();
-if(!name||!phone||!Object.keys(cart).length){
-alert("Добавьте товары и заполните имя и телефон");return;
-}
-let total=0;
-const items=Object.entries(cart).map(([i,q])=>{
-const p=menu[i];total+=p.price*q;
-return p.name+" × "+q+" — "+p.price*q+" ₽";
-}).join("\n");
-const msg="Новый заказ OLIVÉ COFFEE\n"+items+
-"\nИтого: "+total+" ₽\nИмя: "+name+
-"\nТелефон: "+phone+
-"\nПолучение: "+document.getElementById("delivery").value+
-"\nКомментарий: "+document.getElementById("comment").value;
-const number="";
-if(!number){alert("Для отправки заказов нужно подключить номер WhatsApp кофейни.");return;}
-window.open("https://wa.me/"+number+"?text="+encodeURIComponent(msg),"_blank");
-}
-render();
+const cart={};let active='Все';const rub=n=>new Intl.NumberFormat('ru-RU').format(n)+' ₽';const $=id=>document.getElementById(id);
+function renderMenu(){const cats=['Все',...new Set(menu.map(p=>p.category))];$('filters').innerHTML=cats.map(c=>`<button class="${c===active?'active':''}" data-cat="${c}">${c}</button>`).join('');$('products').innerHTML=menu.map((p,i)=>({...p,i})).filter(p=>active==='Все'||p.category===active).map(p=>`<article class="product"><div class="art" aria-hidden="true">${p.emoji}</div><div class="info"><h3>${p.name}</h3><p>${p.desc}</p><div class="price">${rub(p.price)}</div><button data-add="${p.i}">В корзину</button></div></article>`).join('')}
+function renderCart(){const ids=Object.keys(cart).filter(i=>cart[i]>0);$('cartItems').innerHTML=ids.length?ids.map(i=>`<div class="cart-row"><div>${menu[i].name}<br><small>${rub(menu[i].price)}</small></div><div class="qty"><button aria-label="Уменьшить" data-minus="${i}">−</button><span>${cart[i]}</span><button aria-label="Увеличить" data-add="${i}">+</button></div></div>`).join(''):'Корзина пока пуста';$('total').textContent=rub(ids.reduce((s,i)=>s+menu[i].price*cart[i],0))}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.cat!==undefined){active=b.dataset.cat;renderMenu()}if(b.dataset.add!==undefined){const i=b.dataset.add;cart[i]=(cart[i]||0)+1;renderCart()}if(b.dataset.minus!==undefined){const i=b.dataset.minus;cart[i]--;if(cart[i]<=0)delete cart[i];renderCart()}});
+$('orderForm').addEventListener('submit',async e=>{e.preventDefault();const status=$('status');status.className='status';status.textContent='';const ids=Object.keys(cart).filter(i=>cart[i]>0);if(!ids.length){status.className='status error';status.textContent='Добавьте товары в корзину.';return}const name=$('name').value.trim(),phone=$('phone').value.trim(),delivery=$('delivery').value,address=$('address').value.trim(),comment=$('comment').value.trim();if(!name||!phone){status.className='status error';status.textContent='Заполните имя и телефон.';return}if(delivery==='Доставка'&&!address){status.className='status error';status.textContent='Укажите адрес доставки.';return}if(!SUPABASE_URL||!SUPABASE_PUBLISHABLE_KEY){status.className='status error';status.textContent='Отправка пока не настроена: нужно добавить адрес проекта и публичный ключ Supabase.';return}const items=ids.map(i=>({name:menu[i].name,quantity:cart[i],price:menu[i].price}));if(comment)items.push({type:'comment',text:comment});const total_price=ids.reduce((s,i)=>s+menu[i].price*cart[i],0);const btn=$('submit');btn.disabled=true;btn.textContent='Отправляем…';try{const res=await fetch(SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/orders',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+SUPABASE_PUBLISHABLE_KEY,'Prefer':'return=minimal'},body:JSON.stringify({customer_name:name,customer_phone:phone,delivery_address:delivery==='Доставка'?address:'Самовывоз',items,total_price,status:'new'})});if(!res.ok)throw new Error('Ошибка сервера: '+res.status);Object.keys(cart).forEach(k=>delete cart[k]);renderCart();$('orderForm').reset();status.className='status ok';status.textContent='Спасибо! Заказ отправлен.'}catch(err){status.className='status error';status.textContent='Не удалось отправить заказ. Проверьте настройки Supabase и разрешения таблицы orders. '+err.message}finally{btn.disabled=false;btn.textContent='Отправить заказ'}});
+renderMenu();renderCart();
 </script>
-</body>
-</html>
+</body></html>
